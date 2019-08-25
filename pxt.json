@@ -5,7 +5,8 @@
     "dependencies": {
         "core": "*",
         "radio": "*",
-        "gatorEnvironment": "github:sparkfun/pxt-gator-environment#v1.0.13"
+        "gatorEnvironment": "github:sparkfun/pxt-gator-environment#v1.0.13",
+        "neopixel": "github:microsoft/pxt-neopixel#v0.6.12"
     },
     "files": [
         "README.md",
