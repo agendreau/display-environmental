@@ -60,7 +60,7 @@ input.onButtonPressed(Button.A, function () {
 
 ## Step 6
 Modify the program so that when you press ``||input: button B||``, 
-if the ``||gatorEnvironment: temperature||`` is greater than 75 F, 
+``||logic: if||`` the ``||gatorEnvironment: temperature||`` is ``||logic: greater than||`` 75 F, 
 the gator:bit ``||music: plays a song||``. 
 
 ```blocks
