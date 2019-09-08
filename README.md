@@ -1,57 +1,58 @@
 # Environmental Sensor Data Display
 
 ## Introduction
-When you press ``||input: button A||``, turn on ``||Neopixel: green lights||`` ``||logic: if||`` the ``||gatorEnvironment: carbon dioxide||`` is ``||logic: less||`` than 500  and ``||Neopixel: yellow lights||`` if the ``||gatorEnvironment: carbon dioxide||`` is ``||logic: more than||`` 500. Things to think about. Which pin controls the Lights on the gator:bit? How mand LEDs are on the gator:bit? Draw a picture to help think about the logic.
+When you press ``||input: button A||``, ``||logic: if||`` the ``||gatorEnvironment: carbon dioxide||`` is ``||logic: less||`` than 500 how a down arrow else show an up arrow. Things to think about. Draw a picture to help think about what you want to happen. When you're ready press the NEXT button to start.
 
 ## Step 1
-``||basic: Initialize||`` the LEDs to that ``||variables: strip||`` can control them and initialize the environmental sensor
+When you turn the micro:bt on, ``||gatorEnvironment: initialize||`` the environmental sensor
 
 ```blocks
-let strip = neopixel.create(DigitalPin.P12, 5, NeoPixelMode.RGB)
 gatorEnvironment.beginEnvironment()
 ```
 
 ## Step 2 
-Code your micro:bit to take a carbon dioxide reading when ``||input: button A||`` is pressed. Set the ``||neopixel: brightness||`` of the strip to 50, so the lights are not extremely bright.
+Code your micro:bit to take a ``||gatorEnvironment: carbon dioxide||`` reading when ``||input: button A||`` is pressed and ``||basic: show||`` that reading on the micro:bit. 
 
 ```blocks
-let strip = neopixel.create(DigitalPin.P12, 5, NeoPixelMode.RGB)
 gatorEnvironment.beginEnvironment()
 input.onButtonPressed(Button.A, function () {
-    strip.setBrightness(50)
+    basic.showNumber(gatorEnvironment.getMeasurement(measurementType.eCO2))
 })
 ```
 
 ## Step 3
-Now code your micro:bit to display ``||Neopixel: green lights||`` when  ``||gatorEnvironment: carbon dioxide||`` 
+Now code your micro:bit to display a ``||basic: down arrow||`` ``||logic: if||``  ``||gatorEnvironment: carbon dioxide||`` 
 is ``||logic: less than||`` 500.
 
 ```blocks
-let strip = neopixel.create(DigitalPin.P12, 5, NeoPixelMode.RGB)
 gatorEnvironment.beginEnvironment()
 input.onButtonPressed(Button.A, function () {
-        strip.setBrightness(50)
-        if (gatorEnvironment.getMeasurement(measurementType.eCO2) < 500) {
-            strip.showColor(neopixel.colors(NeoPixelColors.Green))
-        } 
+       basic.showNumber(gatorEnvironment.getMeasurement(measurementType.eCO2)) 
+       if (gatorEnvironment.getMeasurement(measurementType.eCO2) < 500) {
+        basic.showIcon(IconNames.Sword)
+    }
 })
 ```
 
 ## Step 4
-Now code your micro:bit to display ``||Neopixel: yellow lights||`` when  ``||gatorEnvironment: carbon dioxide||`` 
+Now code your micro:bit to display ``||basic: up arrow||`` if  ``||gatorEnvironment: carbon dioxide||`` 
 is ``||logic: greater than||`` 500.  
 
 
 ```blocks
-let strip = neopixel.create(DigitalPin.P12, 5, NeoPixelMode.RGB)
-gatorEnvironment.beginEnvironment()
 input.onButtonPressed(Button.A, function () {
-        strip.setBrightness(50)
-        if (gatorEnvironment.getMeasurement(measurementType.eCO2) < 500) {
-            strip.showColor(neopixel.colors(NeoPixelColors.Green))
-        } else {
-            strip.showColor(neopixel.colors(NeoPixelColors.Yellow))
-        }
+    basic.showNumber(gatorEnvironment.getMeasurement(measurementType.eCO2))
+    if (gatorEnvironment.getMeasurement(measurementType.eCO2) < 500) {
+        basic.showIcon(IconNames.Sword)
+    } else {
+        basic.showLeds(`
+            . . # . .
+            . # # # .
+            . . # . .
+            . . # . .
+            . . # . .
+            `)
+    }
 })
 ```
 ## Step 5
@@ -66,6 +67,7 @@ the gator:bit ``||music: plays a song||``.
 input.onButtonPressed(Button.B, function () {
     if (gatorEnvironment.getMeasurement(measurementType.degreesF) > 75) {
         music.beginMelody(music.builtInMelody(Melodies.Chase), MelodyOptions.Once)
+        basic.showString("Temp")
     }
 })
 ```
@@ -78,11 +80,18 @@ Modify either the lights or music to ``||Loops: repeat||`` 5 times
 
 ```blocks
 input.onButtonPressed(Button.A, function () {
-     for (let i = 0; i < 5; i++) {
+ for (let i = 0; i < 5; i++) {
+        basic.showNumber(gatorEnvironment.getMeasurement(measurementType.eCO2))
         if (gatorEnvironment.getMeasurement(measurementType.eCO2) < 500) {
-            strip.showColor(neopixel.colors(NeoPixelColors.Green))
+            basic.showIcon(IconNames.Sword)
         } else {
-            strip.showColor(neopixel.colors(NeoPixelColors.Yellow))
+            basic.showLeds(`
+                . . # . .
+                . # # # .
+                . . # . .
+                . . # . .
+                . . # . .
+                `)
         }
     }
 })
@@ -90,14 +99,21 @@ input.onButtonPressed(Button.A, function () {
 
 ## Step 9
 ``||basic: wait||`` 10 seconds in between each time the sensor takes a reading
+
 ```blocks
 input.onButtonPressed(Button.A, function () {
     for (let i = 0; i < 5; i++) {
-        let strip: neopixel.Strip = null
+        basic.showNumber(gatorEnvironment.getMeasurement(measurementType.eCO2))
         if (gatorEnvironment.getMeasurement(measurementType.eCO2) < 500) {
-            strip.showColor(neopixel.colors(NeoPixelColors.Green))
+            basic.showIcon(IconNames.Sword)
         } else {
-            strip.showColor(neopixel.colors(NeoPixelColors.Yellow))
+            basic.showLeds(`
+                . . # . .
+                . # # # .
+                . . # . .
+                . . # . .
+                . . # . .
+                `)
         }
         basic.pause(10000)
     }
